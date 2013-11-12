@@ -1,0 +1,21 @@
+<%-- display the dependencies and modules for an given "artifact"". The "filter" parameter is used to reduce the dependencies list (dependency.griupId:artifactId must contains the filter)-->
+<#import "_dependencies.ftl.html" as subdependencies>
+<#macro render artifact filter="">
+	<#list artifact.dependencies as dependency>
+		<#if filter?trim?length==0 || (dependency.groupId+':'+dependency.artifactId)?contains(filter)>
+		<li>&bull; ${dependency.groupId+':'+dependency.artifactId}</li>
+		</#if>
+	</#list> 
+	<#list artifact.modules as module>
+		<li>
+			<span title="Module ${module.groupId+':'+module.artifactId}"> 
+				<i class="icon-folder-open"></i><strong>${module.groupId+':'+module.artifactId}</strong>
+			</span>
+			<#if module.dependencies?? || module.modules??>
+			<ul class="nav nav-list">
+				<@subdependencies.render artifact=module filter="be.credoc"/>
+			</ul>
+			</#if>
+		</li>
+	</#list>
+</#macro>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="https://github.com/gervaisb/dashboard/impls/nexus/"
+	xmlns:config="https://github.com/gervaisb/dashboard/config/"
+	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 	
+	xsi:schemaLocation="https://github.com/gervaisb/dashboard/config/ file://configuration.xsd"
+	
+	targetNamespace="https://github.com/gervaisb/dashboard/impls/nexus/"
+	elementFormDefault="qualified">
+	
+	<import namespace="config" schemaLocation="configuration.xsd" />
+
+	<complexType name="Nexus">
+		<complexContent>
+			<extension base="config:MavenRepository">
+				<sequence>
+					<element name="location" type="anyURI" />
+					<element name="group" type="string" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

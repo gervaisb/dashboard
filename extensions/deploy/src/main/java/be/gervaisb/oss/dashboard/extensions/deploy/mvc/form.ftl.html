@@ -1,0 +1,66 @@
+<#import "../../../../../../views/layout/main.ftl.html" as layout>
+
+<@layout.do "Deployment">
+
+<h1>Deployment</h1>
+
+<div class="row-fluid">
+	<div class="span4">
+		<form id="form" method="POST" action="/deployments/">
+			<fieldset>
+				<legend>New deployment</legend>
+				
+				<h5>Deploy</h5>
+				<label>Artifact</label> 
+				<select name="artifact"> 
+					<#list artifacts as artifact>
+					<option value="${artifact.groupId+':'+artifact.artifactId}">${artifact.groupId+':'+artifact.artifactId}</option>
+					</#list>
+				</select>
+				
+				<label>Version</label> 
+				<select name="version"> 
+					<#list versions as version>
+					<option value="${version}">${version}</option>
+					</#list>
+				</select>	
+					
+				<h5>On</h5>
+				<label>Environment</label> 
+				<select name="environment"> 
+					<#list environments as environment>
+					<option value="${environment.id}">${environment.label}</option>
+					</#list>
+				</select>
+				
+				<div class="form-actions">								
+					<button type="submit" class="btn">Deploy</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="span8">
+		<fieldset>
+			<legend>Pending</legend>
+			
+			<div class="alert alert-info">
+				<h4>No pending deployments</h4>
+				There is no pending deployments. Use the form on the left to initiate a new one.
+			</div>
+		</fieldset>
+	</div>
+</div>
+
+<script>
+	$('#form').submit(function(){
+		var $form = $(this),
+			_action = $form.attr('action'),
+			_method = $form.attr('method'),
+			_artifact = $('select[name="artifact"]', $form).val(),
+			_version = $('select[name="version"]', $form).val(),
+			_environment = $('select[name="environment"]', $form).val();
+		alert(_method+' '+_action+'/'+_artifact+':'+_version+'@'+_environment);
+	});
+</script>
+
+</@layout.do>

@@ -1,0 +1,92 @@
+/** Bootstrap override */
+.page-header {
+		margin-bottom: 18px;
+		padding-bottom: 8px }
+	.page-header h1, .page-header h2, .page-header h3, .page-header h4 {
+		margin-bottom: 0px }
+		
+	.well .page-header { margin-top: 5px }
+
+
+.badge.badge-danger { /* Same as badge-important. For consistency between alerts and badges */
+	background-color: #b94a48 }
+		
+.project.overview {
+	padding: 0; height: 480px }
+	
+	.project.overview h3 {
+		margin: 10px }
+	.project.overview .metrics {
+		background-color: #EEE;
+		border-top: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+		.project.overview .metrics .progress.active {
+			width: 50%; height: 2em; margin: 10px auto; line-height: 2em; }
+		.project.overview .metrics .row-fluid {
+			margin: 4px; padding-right: 4px }
+			.project.overview .metrics .row-fluid .span2 {
+				color: #969696; font-weight: bold; text-align: right }
+			.project.overview .metrics .row-fluid .span10 {
+				padding-left: 5px; margin-left: 0; }
+				.project.overview .metrics .row-fluid .span10 .container-fluid,
+				.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid {
+					margin: 0; padding: 0 }
+					.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid em {
+						font-weight: normal; font-size: 12px }
+					.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid .span5 div {
+						font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 8px }
+						.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid .span5 div h4 {
+							margin-top: 0; margin-bottom: 5px; margin-left: 8px; font-size: 13px; text-align: left }
+					.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid { }
+						.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid .span5 {
+							font-size: 13px; font-weight: bold; text-align: right; padding-right: 5px }
+						.project.overview .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid .span4 {
+							text-align: left }
+		.project.overview .dl-horizontal {}
+			.project.overview .dl-horizontal dt {
+				width: 80px }
+			.project.overview .dl-horizontal dd {
+				margin-left: 100px }
+			
+	.project.overview .caption {
+		margin: 4px }
+		.project.overview .caption a.pull-right {
+			font-weight: bold }
+	
+.project .environment h2 {
+	text-indent: 25px }
+	.project .environment .application {
+		background-color: #EEE; border: 1px solid #ddd; padding: 0 8px; margin-bottom: 25px;
+		min-height: 160px }
+		.project .environment .application .page-header {
+			margin-bottom: 5px; margin-top: 0px
+		}
+		.project .environment .application .span10 .dl-horizontal { margin-top: 0 }
+			.project .environment .application .span10 .dl-horizontal {
+				width: 90% }
+				.project .environment .application .span10 .dl-horizontal dt {
+					width: 55px }
+				.project .environment .application .span10 .dl-horizontal dd {
+					margin-left: 65px }
+			.project .environment .application h3 {
+				text-indent: 10px }
+	.project .infos .well .row-fluid {
+		margin-bottom: 25px } 
+		.project .infos .well .row-fluid .metrics {
+			width: 60% }
+			.project .infos .well .row-fluid .metrics .row-fluid {
+				margin: 0 5px }
+				.project .infos .well .row-fluid .metrics .row-fluid .span2 {
+					font-weight: bold; text-align: right }
+					.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid em {
+						font-weight: normal; font-size: 12px }
+					.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid .span5 div {
+						font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 8px }
+						.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid .span5 div h4 {
+							margin-top: 0; margin-bottom: 5px; margin-left: 8px; font-size: 13px; text-align: left }
+					.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid { }
+						.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid .span5 {
+							font-size: 13px; font-weight: bold; text-align: right; padding-right: 5px }
+						.project .infos .well .row-fluid .metrics .row-fluid .span10 .container-fluid .row-fluid .span7 .row-fluid .span4 {
+							text-align: left }

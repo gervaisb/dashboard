@@ -1,0 +1,86 @@
+<#assign stylesForSeverity = {"0":"danger", "1":"warning", "2":"success", "3":"info", "4":"default"}>
+		<#if build??>
+		<div class="row-fluid">
+			<div class="span2">Build</div>
+			<div class="span10">
+				<#if build.state.successful >
+					<span class="badge badge-success">
+						<i class="icon-ok-circle icon-white" title="${build.state.label}"></i></span>
+				<#else>
+					<span class="badge badge-important">
+						<i class="icon-warning-sign icon-white" title="${build.state.label}"></i></span>
+				</#if> 
+				
+				${build.when?datetime}
+				
+				<#if build.message.present >
+				<small>${build.message.get().toString()}</small>
+				</#if>
+			</div>
+		</div>
+		</#if> 
+		
+		<#if issues??>
+		<div class="row-fluid">
+			<div class="span2">Issues</div>
+			<div class="span10">
+				<div class="progress">
+				<#assign difference = 100 >
+				<#list issues.severities?sort_by('level')?reverse as severity>
+					<#if severity_has_next >
+						<#assign difference=difference-issues.getPctIssuesBySeverity(severity) >
+						<div title="${issues.getTotalIssuesBySeverity(severity)} ${severity.label}" class="bar bar-${stylesForSeverity[severity_index?string]}" style="width: ${issues.getPctIssuesBySeverity(severity)}%"></div>
+					<#else>
+						<div title="${issues.getTotalIssuesBySeverity(severity)} ${severity.label}" class="bar bar-${stylesForSeverity[severity_index?string]}" style="width: ${difference}%"></div>
+					</#if>
+				</#list>
+				</div>
+			</div>
+		</div>
+		</#if> 
+		<#if quality??>
+		<div class="row-fluid">
+			<div class="span2">Code</div>
+			<div class="span10">
+				<div class="container-fluid">
+					<div class="row-fluid">
+					    <div class="span5">
+					    	<div>
+					    		<h4>Compliance</h4> 
+					    		${quality.compliance.value?string("0.#")} % 
+								<#if quality.compliance.evolution.isPresent() >
+									<em>(<#if (quality.compliance.evolution.get()>=0) >+<#else>-</#if>${quality.compliance.evolution.get()})</em>
+								</#if>
+					    	</div>
+					    	
+					    	<div>
+					    		<h4>Violations</h4> 
+					    		${quality.totalViolations}
+					    	</div>
+					    </div>
+				    	<div class="span7">
+				    		<#list quality.allViolations?sort_by(['severity', 'level'])?reverse as violation>
+				    			<div class="row-fluid">
+				    				<div class="span5">
+				    					${violation.severity.label}
+				    				</div>
+				    				<div class="span3">
+				    					<span class="badge badge-${stylesForSeverity[violation_index?string]}" title="${violation.severity.label}">${violation.total}</span><br>
+				    				</div>
+				    				<div class="span4">
+					    				<#if violation.evolution.isPresent() >
+											<em>(<#if (violation.evolution.get()>=0) >+<#else>-</#if>${violation.evolution.get()})</em>
+										</#if>
+				    				</div>
+				    			</div>
+							</#list>
+						</div>				      		
+				    </div>
+				</div>
+			</div>
+		</div>
+		</#if> 
+		<#if !(build?? || issues?? || quality??) >
+			<blockquote>No continuous build system, nor issues tracker, neither 
+			quality manager tools where found.</blockquote>
+		</#if>

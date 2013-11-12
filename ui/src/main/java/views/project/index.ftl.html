@@ -1,0 +1,39 @@
+<#import "../layout/main.ftl.html" as layout> 
+
+<@layout.do "Home">
+	<#if projects??>
+		<ul class="thumbnails projects">
+		<#list projects as project>
+			<li class="span4 overview">
+				<div class="project overview thumbnail">
+					<h3>${project.name}</h3>
+					<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html" <#if !this.isDevelopment()>data-refresh="true"</#if>>
+						<div class="progress progress-striped active">
+  							<div class="bar" style="width: 100%;">Loading ...</div>
+						</div>
+					</div>
+					<div class="caption">
+						<p><#noescape>
+							${project.description}
+						</#noescape></p>
+						<dl class="dl-horizontal">
+							<dt>Identifier</dt>	<dd>${project.groupId}:${project.artifactId}</dd> 
+							<dt>Version</dt>	<dd>${project.version}</dd>
+						</dl>
+						<p>
+							<a class="pull-right" href="/${project.groupId}:${project.artifactId}/">View&nbsp;&raquo;</a>
+						</p>
+					</div>
+				</div>
+			</li>
+		</#list>
+		</ul>
+	<#else>
+	<div class="alert">
+		<h4>Empty catalog</h4>
+		<p>No projects are founds from your catalog.</p>
+		<p>Please verify your maven repository <em>url</em> and <em>group</em>
+		   configuration.</p>
+	</div>
+	</#if> 
+</@layout.do>

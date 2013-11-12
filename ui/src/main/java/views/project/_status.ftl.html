@@ -1,0 +1,17 @@
+<div class="page-header">
+	<h3>${application.artifactId}
+	<small>${application.groupId}</small></h3>
+</div>
+<div class="row-fluid">
+	<div class="span2">
+		<img src="/assets/img/status-ok.png" title="Ok" />
+	</div>
+	<div class="span10">
+		<dl class="dl-horizontal">
+			<#list status.attributes as attribute> 
+			<dt>${attribute.name}</dt>
+			<dd>${attribute.value}</dd>
+			</#list>
+		</dl>
+	</div>
+</div>
