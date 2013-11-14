@@ -15,7 +15,7 @@ class MockEnvironment implements Environment {
     @Override
     public int compareTo(final Environment o) {
 	if ( o instanceof MockEnvironment ) {
-	    return (position-(((MockEnvironment) o).position))*-1;
+	    return ( ((MockEnvironment) o).position-position );
 	}
 	return getLabel().compareToIgnoreCase(o.getLabel());
     }

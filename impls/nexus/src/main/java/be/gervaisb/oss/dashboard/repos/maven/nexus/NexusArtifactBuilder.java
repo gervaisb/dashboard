@@ -67,10 +67,10 @@ class NexusArtifactBuilder implements ArtifactBuilder {
 		    ?new Reference.To(parent.getGroupId(), parent.getArtifactId(), new Version(parent.getVersion()))
 	    :Reference.UNKNOW;
 		    StringBuilder description = new StringBuilder();
-		    if ( !model.getName().isEmpty() ) {
+		    if ( model.getName()!=null && !model.getName().isEmpty() ) {
 			description.append(model.getName());
 		    }
-		    if ( !model.getDescription().isEmpty() ) {
+		    if ( model.getDescription()!=null && !model.getDescription().isEmpty() ) {
 			description.append(description.length()>0?"<br />":"")
 			.append(model.getDescription());
 		    }
@@ -105,7 +105,7 @@ class NexusArtifactBuilder implements ArtifactBuilder {
 	Module module = null;
 	for (String mvnmodule : model.getModules()) {
 	    Reference reference = new Reference.To(owner.getGroupId(), mvnmodule, owner.getVersion());
-	    Packaging packaging = Packaging.valueOfIgnoreCaseOrElse(model.getPackaging(), Packaging.Unknow);
+	    Packaging packaging = Packaging.valueOfOr(model.getPackaging(), Packaging.Unknow);
 	    try {
 		module = new Module(nexus.get(reference.getGroupId(), reference.getArtifactId(), reference.getVersion()), packaging, (HasModules) owner);
 	    } catch (ArtifactNotFoundException e) {

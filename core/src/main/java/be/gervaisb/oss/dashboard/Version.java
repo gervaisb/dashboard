@@ -113,15 +113,21 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(final Version other) {
-	int diff = other.getMajor()-getMajor();
+	int diff = Integer.valueOf(getMajor()).compareTo(other.getMajor());
 	if ( diff==0 ) {
-	    diff = other.getMinor()-getMinor();
+	    diff = Integer.valueOf(getMinor()).compareTo(other.getMinor());
 	}
 	if ( diff==0) {
-	    diff = other.getCorrective()-getCorrective();
+	    diff = Integer.valueOf(getCorrective()).compareTo(other.getCorrective());
 	}
 	if ( diff==0 ) {
-	    diff = other.getQualifier().compareToIgnoreCase(getQualifier());
+	    if ( getQualifier().isEmpty() && !other.getQualifier().isEmpty() ) {
+		diff = 1;
+	    } else  if ( !getQualifier().isEmpty() && other.getQualifier().isEmpty() ) {
+		diff = -1;
+	    } else {
+		diff = other.getQualifier().compareToIgnoreCase(getQualifier());
+	    }
 	}
 
 	return diff;

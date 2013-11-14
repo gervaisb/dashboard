@@ -12,7 +12,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import be.gervaisb.oss.dashboard.Reference;
 import be.gervaisb.oss.dashboard.Version;
 
-public class LocalReference implements Reference {
+class LocalReference implements Reference {
 
     private MavenXpp3Reader reader = new MavenXpp3Reader();
     private String groupId;

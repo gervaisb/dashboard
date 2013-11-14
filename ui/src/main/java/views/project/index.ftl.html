@@ -7,7 +7,12 @@
 			<li class="span4 overview">
 				<div class="project overview thumbnail">
 					<h3>${project.name}</h3>
-					<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html" <#if !this.isDevelopment()>data-refresh="true"</#if>>
+					 <#if !this.isDevelopment()>
+						<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html" data-refresh="true"> 
+					 <#else>
+					 	<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html">
+					 </#if>
+					
 						<div class="progress progress-striped active">
   							<div class="bar" style="width: 100%;">Loading ...</div>
 						</div>

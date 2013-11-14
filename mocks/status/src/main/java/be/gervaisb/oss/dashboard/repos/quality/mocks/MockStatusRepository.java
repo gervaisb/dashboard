@@ -3,9 +3,7 @@ package be.gervaisb.oss.dashboard.repos.quality.mocks;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import be.gervaisb.oss.dashboard.Application;
 import be.gervaisb.oss.dashboard.repos.status.Environment;
@@ -15,7 +13,7 @@ import be.gervaisb.oss.dashboard.repos.status.StatusRepository;
 
 public class MockStatusRepository implements StatusRepository {
 
-    private static final Set<Environment> ENVIRONMENTS = new HashSet<>(3);
+    private static final List<Environment> ENVIRONMENTS = new ArrayList<>(3);
     static {
 	ENVIRONMENTS.add(new MockEnvironment(1, "Development"));
 	ENVIRONMENTS.add(new MockEnvironment(2, "Test"));

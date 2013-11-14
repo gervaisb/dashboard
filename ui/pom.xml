@@ -32,6 +32,7 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.ninjaframework</groupId>
 			<artifactId>ninja-servlet</artifactId>
@@ -85,12 +86,6 @@
 				<dependency>
 					<groupId>be.gervaisb.oss.dashboard.mocks</groupId>
 					<artifactId>status-mock</artifactId>
-					<version>1.0-SNAPSHOT</version>
-				</dependency>
-				
-				<dependency>
-					<groupId>be.gervaisb.oss.dashboard.extensions</groupId>
-					<artifactId>deploy</artifactId>
 					<version>1.0-SNAPSHOT</version>
 				</dependency>
 			</dependencies>

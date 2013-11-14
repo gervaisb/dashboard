@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,7 @@ public class Nexus implements MvnRepository {
     private final Client nexus;
     private final String group;
 
-    public Nexus(final URL location, final String group) {
+    public Nexus(@Named("nexus.location")final URL location, @Named("nexus.group")final String group) {
 	if (location == null) {
 	    throw new IllegalArgumentException("'location' is required");
 	}
@@ -39,15 +41,18 @@ public class Nexus implements MvnRepository {
     }
 
 
+    @Override
     public Collection<Reference> all() {
 	return find(group + ".*", null);
     }
 
-    public Collection<Reference> find(String groupId) {
+    @Override
+    public Collection<Reference> find(final String groupId) {
 	return find(groupId, null);
     }
 
-    public Collection<Reference> find(String groupId, String artifactId) {
+    @Override
+    public Collection<Reference> find(final String groupId, final String artifactId) {
 	LOG.info("Finding artifacts with [{}:{}:*] on {}.", new Object[] { groupId, artifactId,
 		nexus });
 	final Version version = null;
@@ -68,7 +73,8 @@ public class Nexus implements MvnRepository {
 	return references;
     }
 
-    public Collection<Reference> find(Class<? extends Artifact> type) {
+    @Override
+    public Collection<Reference> find(final Class<? extends Artifact> type) {
 	LOG.info("Finding artifacts of type[{}] on {}.", new Object[] { type, nexus });
 	final String artifactId = null;
 	final Version version = null;
@@ -79,12 +85,14 @@ public class Nexus implements MvnRepository {
 	return references;
     }
 
-    public ArtifactBuilder get(String groupId, String artifactId, Version version) throws ArtifactNotFoundException {
+    @Override
+    public ArtifactBuilder get(final String groupId, final String artifactId, final Version version) throws ArtifactNotFoundException {
 	LOG.info("Getting artifact [{}:{}:{}] on {}.", new Object[] { groupId, artifactId, version,
 		nexus });
 	return get(nexus.get(groupId, artifactId, version));
     }
 
+    @Override
     public ArtifactBuilder get(final Reference reference) throws ArtifactNotFoundException {
 	try {
 	    return new NexusArtifactBuilder(nexus, reference);

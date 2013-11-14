@@ -41,8 +41,11 @@
 				<div class="page-header">
 					<h4>Metrics</h4>
 				</div>
-				<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html" <#if !this.isDevelopment()>data-refresh="true"</#if>>
-				</div>
+				<#if !this.isDevelopment()>
+					<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html" data-refresh="true"></div>
+				<#else>
+					<div class="metrics" data-source="/${project.groupId}:${project.artifactId}/metrics.p.html"></div>
+				</#if>				
 			</div>
 		</div>
 		<div class="span4">

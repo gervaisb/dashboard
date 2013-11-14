@@ -1,6 +1,6 @@
 package controllers;
 
-import static org.apache.http.HttpStatus.SC_INTERNAL_SERVER_ERROR;
+import static ninja.Result.SC_500_INTERNAL_SERVER_ERROR;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -40,7 +40,7 @@ abstract class AsyncController {
 		    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
 			    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
 		    result = Results.xml().render(future)
-			    .status(SC_INTERNAL_SERVER_ERROR);
+			    .status(SC_500_INTERNAL_SERVER_ERROR);
 		} finally {
 		    context.asyncRequestComplete();
 		    context.returnResultAsync(result);

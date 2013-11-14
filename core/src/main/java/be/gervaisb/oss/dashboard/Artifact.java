@@ -30,13 +30,13 @@ public abstract class Artifact implements Reference {
 	    this.artifactId = matcher.group(HAS_ARTIFACT);
 	    this.version = new Version(matcher.group(HAS_VERSION));
 	    if ( matcher.group(HAS_PACKAGING)!=null ) {
-		this.packaging = Packaging.valueOfIgnoreCaseOrElse(matcher.group(HAS_PACKAGING), packaging);
+		this.packaging = Packaging.valueOfOr(matcher.group(HAS_PACKAGING), packaging);
 	    }
 	} else if ( descriptor!=null ) {
 	    String[] gav = descriptor.split(MAVEN_GAV_SEPARATOR);
 	    switch (gav.length) {
 	    case HAS_PACKAGING:
-		packaging = Packaging.valueOfIgnoreCaseOrElse(gav[HAS_PACKAGING-1], packaging);
+		packaging = Packaging.valueOfOr(gav[HAS_PACKAGING-1], packaging);
 	    case HAS_VERSION:
 		version = new Version(gav[HAS_VERSION-1]);
 	    case HAS_ARTIFACT:
@@ -129,7 +129,7 @@ public abstract class Artifact implements Reference {
 	.append(getArtifactId()).append(':')
 	.append(getVersion());
 	if ( getPackaging()!=Packaging.Unknow ) {
-	    string.append(':').append(getPackaging().name().toLowerCase());
+	    string.append(':').append(getPackaging().getName());
 	}
 	return string.toString();
     }

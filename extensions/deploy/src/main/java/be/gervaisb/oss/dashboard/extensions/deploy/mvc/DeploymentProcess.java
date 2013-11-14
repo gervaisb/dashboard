@@ -25,4 +25,9 @@ public class DeploymentProcess implements Runnable {
 	}
     }
 
+    private boolean isRunnable() {
+	return State.INTERRUPTED!=deployment.getState() &&
+		!Thread.interrupted();
+    }
+
 }

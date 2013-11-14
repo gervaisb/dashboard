@@ -18,7 +18,7 @@ import be.gervaisb.oss.dashboard.repos.maven.ArtifactNotFoundException;
 import be.gervaisb.oss.dashboard.repos.maven.MvnRepository;
 import be.gervaisb.oss.dashboard.repos.maven.MvnRepository.ArtifactBuilder;
 
-public class LocalArtifactBuilder implements ArtifactBuilder {
+class LocalArtifactBuilder implements ArtifactBuilder {
 
     private final LocalReference reference;
     private final MvnRepository repository;
@@ -78,7 +78,7 @@ public class LocalArtifactBuilder implements ArtifactBuilder {
 	Module module = null;
 	for (String mvnmodule : reference.model.getModules()) {
 	    Reference reference = new Reference.To(owner.getGroupId(), mvnmodule, owner.getVersion());
-	    Packaging packaging = Packaging.valueOfIgnoreCaseOrElse(this.reference.model.getPackaging(), Packaging.Unknow);
+	    Packaging packaging = Packaging.valueOfOr(this.reference.model.getPackaging(), Packaging.Unknow);
 	    try {
 		module = repository.get(reference.getGroupId(), reference.getArtifactId(), reference.getVersion()).as(Module.class);
 	    } catch (ArtifactNotFoundException e) {
