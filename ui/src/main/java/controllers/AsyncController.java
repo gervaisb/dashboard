@@ -1,11 +1,14 @@
 package controllers;
 
+import static org.apache.http.HttpStatus.SC_INTERNAL_SERVER_ERROR;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ninja.Context;
 import ninja.Result;
+import ninja.Results;
 import ninja.lifecycle.Dispose;
 
 import org.slf4j.Logger;
@@ -24,36 +27,28 @@ abstract class AsyncController {
     }
 
     protected final Result async(final Context context, final Callable<Result> future) throws Exception {
-	try {
-	    Result result = future.call();
-	    LOG.trace("Asynchronous call for \"{} {}\" completed.",
-		    context.getMethod(), context.getRequestPath());
-	    return result;
-	} catch (Exception failure) {
-	    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
-		    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
-	    throw failure;
-	}
-	//	LOG.trace("Submitting asynchronous call for \"{} {}\".", context.getMethod(), context.getRequestPath());
-	//	executor.submit(new Callable<Void>() {
-	//	    @Override
-	//	    public Void call() throws Exception {
-	//		try {
-	//		    context.returnResultAsync(future.call());
-	//		    LOG.trace("Asynchronous call for \"{} {}\" completed.",
-	//			    context.getMethod(), context.getRequestPath());
-	//		    return null;
-	//		} catch (final Exception failure) {
-	//		    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
-	//			    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
-	//		    throw failure;
-	//		} finally {
-	//		    context.asyncRequestComplete();
-	//		}
-	//	    }
-	//	});
-	//	context.handleAsync();
-	//	return Results.async();
+	LOG.trace("Submitting asynchronous call for \"{} {}\".", context.getMethod(), context.getRequestPath());
+	executor.submit(new Runnable() {
+	    @Override
+	    public void run() {
+		Result result = null;
+		try {
+		    result = future.call();
+		    LOG.trace("Asynchronous call for \"{} {}\" completed.",
+			    context.getMethod(), context.getRequestPath());
+		} catch (final Exception failure) {
+		    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
+			    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
+		    result = Results.xml().render(future)
+			    .status(SC_INTERNAL_SERVER_ERROR);
+		} finally {
+		    context.asyncRequestComplete();
+		    context.returnResultAsync(result);
+		}
+	    }
+	});
+	context.handleAsync();
+	return Results.async();
     }
 
     @Override @Dispose
