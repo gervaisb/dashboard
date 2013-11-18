@@ -16,6 +16,7 @@
 
 	<modules>
 		<module>nexus</module>
+		<module>bamboo</module>
 	</modules>
 
 	<dependencies>
