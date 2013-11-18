@@ -22,6 +22,7 @@ public class Project extends Artifact implements HasDependencies, HasModules {
     private final Set<Module> modules = new TreeSet<Module>();
     private final Reference parent;
     private String description = "";
+    private String name = null;
 
     public Project(final String group, final String artifact) {
 	this(group, artifact, Version.LATEST);
@@ -52,7 +53,11 @@ public class Project extends Artifact implements HasDependencies, HasModules {
     }
 
     public String getName() {
-	return getArtifactId();
+	return name==null?getArtifactId():name;
+    }
+
+    public void setName(final String name) {
+	this.name = name==null?this.name:name;
     }
 
     public Reference getParent() {
