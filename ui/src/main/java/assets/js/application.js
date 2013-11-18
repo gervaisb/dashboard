@@ -1,5 +1,12 @@
 function load($loadable) {
-	$loadable.load($loadable.attr('data-source'));
+	$loadable.load($loadable.attr('data-source'), function( response, status, xhr ) {
+		  if ( status == "error" ) {
+			    $loadable.html('<div class="alert alert-error">'+
+			    		'<h4>Something went wrong</h4>'+
+			    		'<p>We failed to serve the requested fragment.<p>'+
+			    		'<p>Cause : '+$loadable.attr('data-source')+'; '+xhr.status+' '+xhr.statusText+'</p>'+
+			    		'</div>');
+		  }});
 }
     
 function refreshLater($refreshable) {

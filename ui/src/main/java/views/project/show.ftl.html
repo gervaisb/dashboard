@@ -6,8 +6,9 @@
 	<h1>${project.groupId+':'+project.artifactId}</h1>
 
 	<div class="row-fluid">
+		<#assign width>${(12/(environments?size))?floor}</#assign>
 		<#list environments as environment>
-		<div class="span4 environment overview">
+		<div class="span${width} environment overview">
 			<div class="page-header">
 				<h2>${environment.label}</h2>
 			</div>

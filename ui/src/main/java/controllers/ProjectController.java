@@ -90,7 +90,7 @@ public class ProjectController extends AsyncController {
 		    .render("applications", getApplications(project))
 		    .render("project", project);
 	} catch (final ArtifactNotFoundException notFound) {
-	    LOG.error("Project [{}:{}] not found in maven repository. Cannot show it.", groupId, artifactId);
+	    LOG.error("Project [{}:{}] not found in maven repository. Cannot show it.", groupId, artifactId, notFound);
 	    return Results.html().template("views/project/_notfound.ftl.html")
 		    .render("error", notFound)
 		    .status(SC_404_NOT_FOUND);

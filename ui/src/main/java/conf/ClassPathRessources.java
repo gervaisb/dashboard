@@ -34,6 +34,7 @@ class ClassPathRessources implements Iterable<URL> {
 	while ( founds.hasMoreElements() ) {
 	    URL found = founds.nextElement();
 	    collection.add(found);
+	    LOG.debug("Found {}.", found);
 	}
 	return collection;
     }

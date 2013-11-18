@@ -1,14 +1,11 @@
 package controllers;
 
-import static ninja.Result.SC_500_INTERNAL_SERVER_ERROR;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ninja.Context;
 import ninja.Result;
-import ninja.Results;
 import ninja.lifecycle.Dispose;
 
 import org.slf4j.Logger;
@@ -27,28 +24,29 @@ abstract class AsyncController {
     }
 
     protected final Result async(final Context context, final Callable<Result> future) throws Exception {
-	LOG.trace("Submitting asynchronous call for \"{} {}\".", context.getMethod(), context.getRequestPath());
-	executor.submit(new Runnable() {
-	    @Override
-	    public void run() {
-		Result result = null;
-		try {
-		    result = future.call();
-		    LOG.trace("Asynchronous call for \"{} {}\" completed.",
-			    context.getMethod(), context.getRequestPath());
-		} catch (final Exception failure) {
-		    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
-			    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
-		    result = Results.xml().render(future)
-			    .status(SC_500_INTERNAL_SERVER_ERROR);
-		} finally {
-		    context.asyncRequestComplete();
-		    context.returnResultAsync(result);
-		}
-	    }
-	});
-	context.handleAsync();
-	return Results.async();
+	return future.call();
+	//	LOG.trace("Submitting asynchronous call for \"{} {}\".", context.getMethod(), context.getRequestPath());
+	//	executor.submit(new Runnable() {
+	//	    @Override
+	//	    public void run() {
+	//		Result result = null;
+	//		try {
+	//		    result = future.call();
+	//		    LOG.trace("Asynchronous call for \"{} {}\" completed.",
+	//			    context.getMethod(), context.getRequestPath());
+	//		} catch (final Exception failure) {
+	//		    LOG.error("Asynchronous call for \"{} {}\" failed : {}.",
+	//			    context.getMethod(), context.getRequestPath(), failure.getMessage(), failure);
+	//		    result = Results.xml().render(future)
+	//			    .status(SC_500_INTERNAL_SERVER_ERROR);
+	//		} finally {
+	//		    context.asyncRequestComplete();
+	//		    context.returnResultAsync(result);
+	//		}
+	//	    }
+	//	});
+	//	context.handleAsync();
+	//	return Results.async();
     }
 
     @Override @Dispose

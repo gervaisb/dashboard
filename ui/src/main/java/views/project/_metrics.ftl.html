@@ -13,8 +13,8 @@
 				
 				${build.when?datetime}
 				
-				<#if build.message.present >
-				<small>${build.message.get().toString()}</small>
+				<#if build.message.isPresent() >
+				<br /><small><#noescape>${build.message.get()}</#noescape></small>
 				</#if>
 			</div>
 		</div>
